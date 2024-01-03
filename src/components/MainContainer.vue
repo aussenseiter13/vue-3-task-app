@@ -1,5 +1,5 @@
 <template>
-    <main class="bg-slate-800">
+    <main class="h-screen w-full flex flex-row">
         <slot></slot>
     </main>
 </template>

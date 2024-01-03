@@ -1,9 +1,9 @@
 <script setup>
-import MainContainer from "@/components/MainContainer.vue";
+import MainContent from "@/components/MainContent.vue";
 </script>
 
 <template>
-    <MainContainer>
+    <MainContent>
         <h1>HOME VIEW</h1>
-    </MainContainer>
+    </MainContent>
 </template>
