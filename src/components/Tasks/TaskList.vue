@@ -1,8 +1,8 @@
 <script setup>
 import TaskItem from "@/components/Tasks/TaskItem.vue";
-import { ref, onBeforeMount, reactive } from "vue";
+import { ref, onBeforeMount, reactive, watch } from "vue";
 
-let tasks = reactive([
+let tasks = ref([
     {
         id: 1,
         name: "Grab Launch",
@@ -20,9 +20,9 @@ let newTask = {
     completed: ref(false),
 };
 
-function addTask() {
-    tasks.push({
-        id: tasks.length + 1,
+function createTask() {
+    tasks.value.push({
+        id: tasks.value.length + 1,
         name: newTask.name.value,
         completed: newTask.completed,
     });
@@ -30,12 +30,17 @@ function addTask() {
     newTask.name.value = "";
     newTask.completed = false;
 }
+
+function deleteTask(task) {
+    tasks.value = tasks.value.filter((item) => item.id != task.id);
+}
 </script>
 
 <template>
     <div class="flex flex-col gap-8">
+        <!-- CREATE MODAL START -->
         <form
-            @submit.prevent="addTask"
+            @submit.prevent="createTask"
             class="bg-slate-800 flex flex-col gap-6 px-4 py-4 border border-slate-700 rounded-md text-slate-300"
         >
             <div class="flex flex-col gap-2">
@@ -52,7 +57,7 @@ function addTask() {
                 <input
                     type="checkbox"
                     v-model="newTask.completed"
-                    :checked="newTask.completed"
+                    :checked="newTask.completed.value"
                 />
             </div>
             <button
@@ -62,8 +67,10 @@ function addTask() {
                 Create task
             </button>
         </form>
+        <!-- CREATE MODAL END -->
         <ul class="flex flex-col gap-4">
             <TaskItem
+                @deleteTask="deleteTask"
                 v-for="task in tasks"
                 :key="task.id"
                 :task="task"

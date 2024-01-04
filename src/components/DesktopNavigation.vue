@@ -3,7 +3,9 @@ import { RouterLink } from "vue-router";
 </script>
 
 <template>
-    <header class="bg-slate-950 min-w-64 px-8 py-8 flex flex-col gap-8">
+    <header
+        class="bg-slate-950 fixed h-full top-0 left-0 min-w-64 px-8 py-8 flex flex-col gap-8"
+    >
         <div class="flex flex-col gap-8 text-center">
             <h3 class="font-bold text-gray-300">TASK APP</h3>
             <hr class="border-slate-800" />
