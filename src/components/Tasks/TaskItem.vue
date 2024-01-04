@@ -9,6 +9,7 @@ defineProps({
         <p>
             {{ task.name }}
         </p>
+        <p>{{ task.id }}</p>
         <p
             v-text="task.completed ? 'Finished' : 'Not finished'"
             :class="task.completed ? 'text-teal-500' : 'text-red-500'"

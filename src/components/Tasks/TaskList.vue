@@ -1,8 +1,8 @@
 <script setup>
 import TaskItem from "@/components/Tasks/TaskItem.vue";
-import { ref } from "vue";
+import { ref, onBeforeMount, reactive } from "vue";
 
-let tasks = ref([
+let tasks = reactive([
     {
         id: 1,
         name: "Grab Launch",
@@ -20,7 +20,16 @@ let newTask = {
     completed: ref(false),
 };
 
-function addTask() {}
+function addTask() {
+    tasks.push({
+        id: tasks.length + 1,
+        name: newTask.name.value,
+        completed: newTask.completed,
+    });
+
+    newTask.name.value = "";
+    newTask.completed = false;
+}
 </script>
 
 <template>
@@ -48,7 +57,7 @@ function addTask() {}
             </div>
             <button
                 :disabled="newTask.name.value.length ? 0 : !0"
-                class="bg-slate-700 py-2 rounded-md font-bold text-md hover:bg-teal-700 disabled:bg-slate-700 disabled:text-slate-700 disabled:cursor-not-allowed"
+                class="bg-slate-600 py-2 rounded-md font-bold text-md hover:bg-teal-600 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed"
             >
                 Create task
             </button>
