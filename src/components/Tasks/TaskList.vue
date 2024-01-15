@@ -21,19 +21,21 @@ let newTask = ref({
     completed: true,
 });
 
+let displayCreateModal = ref(false);
+
+function hideCreateModal() {
+    displayCreateModal.value = false;
+}
+
 function createTask() {
-    console.log("HIT FUNCION");
+    tasks.value.push({
+        id: tasks.value.length + 1,
+        name: newTask.value.name,
+        completed: newTask.value.completed,
+    });
 
-    console.log(newTask.value.name);
-
-    // tasks.value.push({
-    //     id: tasks.value.length + 1,
-    //     name: newTask.name.value,
-    //     completed: newTask.completed,
-    // });
-
-    // newTask.name.value = "";
-    // newTask.completed = false;
+    newTask.value.name = "";
+    newTask.value.completed = false;
 }
 
 function deleteTask(task) {
@@ -45,13 +47,16 @@ function deleteTask(task) {
     <div class="flex flex-col gap-8">
         <div>
             <button
+                @click="displayCreateModal = true"
                 class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md font-bold"
             >
                 Create
             </button>
             <CreateTaskModal
                 :newTask="newTask"
+                :display-create-modal="displayCreateModal"
                 @createTask="createTask"
+                @hideCreateModal="hideCreateModal"
             ></CreateTaskModal>
         </div>
         <ul class="flex flex-col gap-4">
